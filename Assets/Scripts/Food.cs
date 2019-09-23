@@ -9,16 +9,18 @@ public class Food : MonoBehaviour
     public bool hasBeenRobbed = false;
     public GameObject robber;
 
+    public Vector2 originalPosition;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        originalPosition = this.transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (hasBeenRobbed && robber.activeSelf)
+        if (hasBeenRobbed && robber != null)
         {
             this.transform.position = robber.transform.position;
         }

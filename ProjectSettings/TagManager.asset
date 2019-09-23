@@ -9,6 +9,7 @@ TagManager:
   - furniture
   - farmer
   - weapon
+  - coin
   layers:
   - Default
   - TransparentFX

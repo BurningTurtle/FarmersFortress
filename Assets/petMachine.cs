@@ -20,7 +20,7 @@ public class petMachine : MonoBehaviour
     {
         if (Input.GetKeyDown("space"))
         { 
-            if(Vector2.Distance(this.transform.position, player.transform.position) < 2f)
+            if(Vector2.Distance(this.transform.position, player.transform.position) < .5f)
             {
                 StartCoroutine(spin());
             }

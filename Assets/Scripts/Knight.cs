@@ -17,10 +17,14 @@ public class Knight : MonoBehaviour
 
     public int health;
 
+    GameObject player;
+
     // Start is called before the first frame update
     void Start()
     {
         health = 30;
+
+        player = GameObject.FindGameObjectWithTag("farmer");
 
         Debug.Log("Knight is starting...");
 
@@ -54,6 +58,11 @@ public class Knight : MonoBehaviour
                 robbing = true;
             }
         }
+
+        if (!robbing)
+        {
+            StartCoroutine(walkTo(player));
+        }
     }
 
     IEnumerator noForce()
@@ -70,12 +79,22 @@ public class Knight : MonoBehaviour
     {
         Debug.Log("Knight should walk to..." + thing.transform.position);
 
-        while (!thing.gameObject.GetComponent<Food>().hasBeenRobbed)
+        if (thing.gameObject.tag == "food")
         {
-            transform.position = Vector2.MoveTowards(this.body.transform.position, thing.transform.position, 0.065f);
-            yield return null;
+            while (!thing.gameObject.GetComponent<Food>().hasBeenRobbed)
+            {
+                transform.position = Vector2.MoveTowards(this.body.transform.position, thing.transform.position, 0.065f);
+                yield return null;
+            }
         }
-
+        else
+        {
+            while (true)
+            {
+                transform.position = Vector2.MoveTowards(this.body.transform.position, thing.transform.position, 0.065f);
+                yield return null;
+            }
+        }
         StartCoroutine(flee());
     }
 

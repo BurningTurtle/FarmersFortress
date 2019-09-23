@@ -12,20 +12,39 @@ public class GameController : MonoBehaviour
 
     public int score;
 
+    public int days = 0;
+
     // Start is called before the first frame update
     void Start()
     {
         updateFoods();
         updateKnights();
 
-        StartCoroutine(wave1());
+        
     }
+
     // Update is called once per frame
     void Update()
     {
         Debug.Log("Score:" + score);
         updateFoods();
         updateKnights();
+    }
+
+    public void startNextDay()
+    {
+        if(knights.Length == 0)
+        {
+            foreach (GameObject food in foods){
+                food.transform.position = food.GetComponent<Food>().originalPosition;
+                food.GetComponent<Food>().robber = null;
+                food.GetComponent<Food>().hasBeenRobbed = false;
+                food.GetComponent<Food>().willBeRobbed= false;
+            }
+            StartCoroutine(startWave());
+            days++;
+            UIManager.GetComponent<UIManager>().changeDayText("Day " + days);
+        }  
     }
 
     private void updateFoods()
@@ -51,11 +70,53 @@ public class GameController : MonoBehaviour
         knight.GetComponent<SpriteRenderer>().sortingOrder = order;
     }
 
-    IEnumerator wave1()
+    IEnumerator startWave()
     {
-        for (int i=0; i<5; i++){
-            spawnKnight(new Vector2(7.5f, 1.6f), i);
-            yield return new WaitForSeconds(0);
+        yield return new WaitForSeconds(3);
+
+        switch (days)
+        {
+            case 1:
+                for (int i = 0; i < 1; i++)
+                {
+                    spawnKnight(new Vector2(7.5f, 1.6f), i);
+                }
+                break;
+
+            case 2:
+                for (int i = 0; i < 1; i++)
+                {
+                    spawnKnight(new Vector2(7.5f, 1.6f), i);
+                }
+                break;
+
+            case 3:
+                for (int i = 0; i < 2; i++)
+                {
+                    spawnKnight(new Vector2(7.5f, 1.6f), i);
+                }
+                break;
+
+            case 4:
+                for (int i = 0; i < 2; i++)
+                {
+                    spawnKnight(new Vector2(7.5f, 1.6f), i);
+                }
+                break;
+
+            case 5:
+                for (int i = 0; i < 3; i++)
+                {
+                    spawnKnight(new Vector2(7.5f, 1.6f), i);
+                }
+                break;
+
+            case 6:
+                for (int i = 0; i < 3; i++)
+                {
+                    spawnKnight(new Vector2(7.5f, 1.6f), i);
+                }
+                break;
         }
     }
 }
