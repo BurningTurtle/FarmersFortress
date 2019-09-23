@@ -51,6 +51,9 @@ TagManager:
   - name: People
     uniqueID: 3409986829
     locked: 0
+  - name: Weapon
+    uniqueID: 1878311657
+    locked: 0
   - name: Food
     uniqueID: 1974303397
     locked: 0
