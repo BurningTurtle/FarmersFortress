@@ -8,6 +8,7 @@ public class GameController : MonoBehaviour
     public GameObject[] foods;
     public GameObject[] knights;
     public GameObject knightPrefab;
+    public GameObject UIManager;
 
     public int score;
 
@@ -18,23 +19,20 @@ public class GameController : MonoBehaviour
         updateKnights();
 
         StartCoroutine(wave1());
-
-
     }
     // Update is called once per frame
     void Update()
     {
         Debug.Log("Score:" + score);
+        updateFoods();
+        updateKnights();
     }
 
     private void updateFoods()
     {
         foods = GameObject.FindGameObjectsWithTag("food");
-        Debug.Log("Foods have been updated: ");
-        foreach(GameObject food in foods)
-        {
-            Debug.Log(food);
-        }
+        UIManager.GetComponent<UIManager>().changeFoodText("Remaining Food: \n" + foods.Length);
+        Debug.Log("Foods: " + foods.Length);
     }
 
     private void updateKnights()

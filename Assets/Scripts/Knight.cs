@@ -10,12 +10,18 @@ public class Knight : MonoBehaviour
 
     public bool robbing = false;
 
-    GameObject currentFood;
+    public GameObject currentFood;
     GameObject closest;
+
+    public GameObject coinPrefab;
+
+    public int health;
 
     // Start is called before the first frame update
     void Start()
     {
+        health = 30;
+
         Debug.Log("Knight is starting...");
 
         gameController = GameObject.Find("GameController");
@@ -66,7 +72,7 @@ public class Knight : MonoBehaviour
 
         while (!thing.gameObject.GetComponent<Food>().hasBeenRobbed)
         {
-            transform.position = Vector2.MoveTowards(this.body.transform.position, thing.transform.position, 0.05f);
+            transform.position = Vector2.MoveTowards(this.body.transform.position, thing.transform.position, 0.065f);
             yield return null;
         }
 
@@ -77,7 +83,7 @@ public class Knight : MonoBehaviour
     {
         while (true)
         {
-            transform.position = Vector2.MoveTowards(this.body.transform.position, new Vector2(7.5f, 1.6f), 0.1f);
+            transform.position = Vector2.MoveTowards(this.body.transform.position, new Vector2(7.5f, 1.6f), 0.09f);
             yield return null;
             if(body.transform.position.x > 7 && body.transform.position.y > 1.5f)
             {
@@ -97,6 +103,21 @@ public class Knight : MonoBehaviour
             if(Vector2.Distance(currentFood.transform.position, this.transform.position) < 2.5f)
             {
                 currentFood.transform.position = this.transform.position;
+            }
+        }
+        
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.tag == "weapon")
+        {
+            health -= collision.gameObject.GetComponent<WeaponDamage>().damage;
+            Debug.Log("Health has been decreased to: " + health);
+            if(health <= 0)
+            {
+                Instantiate(coinPrefab, this.transform.position, Quaternion.identity);
+                Destroy(this.gameObject);
             }
         }
     }

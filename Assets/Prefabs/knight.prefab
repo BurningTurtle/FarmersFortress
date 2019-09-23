@@ -116,6 +116,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   robbing: 0
+  currentFood: {fileID: 0}
+  coinPrefab: {fileID: 7589709966596510771, guid: f758d12fef66602499b58812bfced79d,
+    type: 3}
+  health: 0
 --- !u!50 &-1777526122877015001
 Rigidbody2D:
   serializedVersion: 4

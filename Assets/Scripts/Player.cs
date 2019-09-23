@@ -14,6 +14,10 @@ public class Player : MonoBehaviour
 
     public float runSpeed = 20.0f;
 
+    public int money;
+
+    public GameObject UIManager;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -41,5 +45,15 @@ public class Player : MonoBehaviour
             animator.SetBool("isMoving", true);
         }
         
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.tag == "coin")
+        {
+            money += 5;
+            UIManager.GetComponent<UIManager>().changeMoneyText("Money: " + money);
+            Destroy(collision.gameObject);
+        }
     }
 }

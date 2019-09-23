@@ -8,6 +8,7 @@ TagManager:
   - knight
   - furniture
   - farmer
+  - weapon
   layers:
   - Default
   - TransparentFX

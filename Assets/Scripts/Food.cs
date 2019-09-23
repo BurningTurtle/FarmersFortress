@@ -28,7 +28,7 @@ public class Food : MonoBehaviour
     void OnTriggerEnter2D(Collider2D col)
     {
         Debug.Log("Food collided with " + col.name);
-        if(col.gameObject.tag == "knight" && !hasBeenRobbed)
+        if(col.gameObject.tag == "knight" && !hasBeenRobbed && col.gameObject.GetComponent<Knight>().currentFood == this.gameObject)
         {
             robber = col.gameObject;
             hasBeenRobbed = true;
