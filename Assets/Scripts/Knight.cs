@@ -79,6 +79,12 @@ public class Knight : MonoBehaviour
         {
             transform.position = Vector2.MoveTowards(this.body.transform.position, new Vector2(7.5f, 1.6f), 0.1f);
             yield return null;
+            if(body.transform.position.x > 7 && body.transform.position.y > 1.5f)
+            {
+                gameController.GetComponent<GameController>().score -= 10;
+                Destroy(this.gameObject);
+                Destroy(currentFood.gameObject);
+            }
         }
     }
 
