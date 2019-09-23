@@ -10,6 +10,7 @@ public class Pitchfork : MonoBehaviour
     private Rigidbody2D body;
 
     private bool thrusting;
+    private bool ready = true;
 
     // Start is called before the first frame update
     void Start()
@@ -25,7 +26,7 @@ public class Pitchfork : MonoBehaviour
         {
             this.transform.position = farmer.transform.position + new Vector3(0.45f, -0.2f, 0);
             rotateToMouse();
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0) && ready)
             {
                 StartCoroutine(thrust());
             }
@@ -64,6 +65,7 @@ public class Pitchfork : MonoBehaviour
         if (!thrusting)
         {
             thrusting = true;
+            ready = false;
 
             Vector3 dir = Quaternion.AngleAxis(getAngle() - 90, Vector3.forward) * Vector3.right;
             Debug.Log(dir);
@@ -71,6 +73,10 @@ public class Pitchfork : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
             body.velocity = Vector3.zero;
             thrusting = false;
+
+            yield return new WaitForSeconds(0.3f);
+
+            ready = true;
         }
         
     }
